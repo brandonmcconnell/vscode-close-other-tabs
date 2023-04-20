@@ -1,0 +1,94 @@
+{
+  "name": "close-other-tabs",
+  "publisher": "dreamthinkbuild",
+  "keywords": ["close", "active", "inactive", "other", "tab", "tabs", "editor", "editors", "group", "groups", "window", "windows", "sublime", "text"],
+  "displayName": "Close Other Tabs & Tab Groups",
+  "icon": "images/icon_256.png",
+  "description": "Close all tabs and/or tab groups except for the currently active one(s), inspired by the CloseOtherWindows Sublime Text extension",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brandonmcconnell/vscode-close-other-tabs.git"
+  },  
+  "engines": {
+    "vscode": "^1.77.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.closeNonActiveTabGroups",
+        "title": "Close other (non-active) tab groups"
+      },
+      {
+        "command": "extension.closeNonActiveTabsInCurrentGroup",
+        "title": "Close other (non-active) tabs in current tab group"
+      },
+      {
+        "command": "extension.closeNonActiveTabsInEachGroup",
+        "title": "Close other (non-active) tabs in each tab group"
+      },
+      {
+        "command": "extension.closeNonActiveTabsInAllGroups",
+        "title": "Close other (non-active) tabs and tab groups everywhere"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "extension.closeNonActiveTabGroups",
+        "key": "alt+super+shift+w",
+        "mac": "alt+cmd+shift+w",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "extension.closeNonActiveTabsInCurrentGroup",
+        "key": "ctrl+super+shift+w",
+        "mac": "ctrl+cmd+shift+w",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "extension.closeNonActiveTabsInEachGroup",
+        "key": "ctrl+alt+shift+w",
+        "mac": "ctrl+alt+shift+w",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "extension.closeNonActiveTabsInAllGroups",
+        "key": "alt+shift+w",
+        "mac": "alt+shift+w",
+        "when": "editorTextFocus"
+      }
+    ]
+  },  
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.77.0",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "eslint": "^8.36.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.2.0",
+    "typescript": "^4.9.5",
+    "ts-loader": "^9.4.2",
+    "webpack": "^5.76.3",
+    "webpack-cli": "^5.0.1",
+    "@vscode/test-electron": "^2.3.0"
+  }
+}
