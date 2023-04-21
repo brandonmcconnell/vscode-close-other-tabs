@@ -1,4 +1,4 @@
-# Close Other Tabs & Tab Groups for VSCode
+# Close Other Tabs (for VSCode)
 
 _Close all tabs and/or tab groups except for the currently active one(s), inspired by the [CloseOtherWindows](https://packagecontrol.io/packages/CloseOtherWindows) Sublime Text extension_
 

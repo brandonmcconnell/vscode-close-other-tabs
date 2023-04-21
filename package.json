@@ -2,10 +2,10 @@
   "name": "close-other-tabs",
   "publisher": "dreamthinkbuild",
   "keywords": ["close", "active", "inactive", "other", "tab", "tabs", "editor", "editors", "group", "groups", "window", "windows", "sublime", "text"],
-  "displayName": "Close Other Tabs & Tab Groups",
+  "displayName": "Close Other Tabs",
   "icon": "images/icon_256.png",
   "description": "Close all tabs and/or tab groups except for the currently active one(s), inspired by the CloseOtherWindows Sublime Text extension",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/brandonmcconnell/vscode-close-other-tabs.git"
