@@ -101,8 +101,82 @@ suite('Extension Test Suite', () => {
 
 		// Check to ensure non-active tabs were closed in the current tab group and not in other tab groups
 		assert.strictEqual(vscode.window.tabGroups.all.length, 3, 'There should be 3 tab groups');
-    assert.strictEqual(vscode.window.tabGroups.activeTabGroup.tabs.length, 1, 'There should be 1 tab in the active group');
-    assert.strictEqual(vscode.window.tabGroups.all.filter(group => !group.activeTab).every(group => group.tabs.length === 2), true, 'Every non-active tab group should still have 2 tabs');
+    	assert.strictEqual(vscode.window.tabGroups.activeTabGroup.tabs.length, 1, 'There should be 1 tab in the active group');
+    	assert.strictEqual(vscode.window.tabGroups.all.filter(group => !group.activeTab).every(group => group.tabs.length === 2), true, 'Every non-active tab group should still have 2 tabs');
+	});
+	
+	test('Close other (non-active) tabs from left in current tab group', async () => {
+		// Activate the extension
+		const extension = vscode.extensions.getExtension('dreamthinkbuild.close-other-tabs');
+		if (!extension) {
+			throw new Error('Extension not found');
+		}
+		await extension.activate();
+
+		// Open several documents
+		const doc1 = await vscode.workspace.openTextDocument({ content: 'Document 1' });
+		const doc2 = await vscode.workspace.openTextDocument({ content: 'Document 2' });
+		const doc3 = await vscode.workspace.openTextDocument({ content: 'Document 3' });
+		const doc4 = await vscode.workspace.openTextDocument({ content: 'Document 4' });
+		const doc5 = await vscode.workspace.openTextDocument({ content: 'Document 5' });
+		const doc6 = await vscode.workspace.openTextDocument({ content: 'Document 6' });
+		const allDocs = { doc1, doc2, doc3, doc4, doc5, doc6 };
+
+		// Show the documents in the editor
+		await vscode.window.showTextDocument(doc1, { viewColumn: vscode.ViewColumn.One });
+		await vscode.window.showTextDocument(doc2, { viewColumn: vscode.ViewColumn.One });
+		await vscode.window.showTextDocument(doc3, { viewColumn: vscode.ViewColumn.Two });
+		await vscode.window.showTextDocument(doc4, { viewColumn: vscode.ViewColumn.Two });
+		await vscode.window.showTextDocument(doc5, { viewColumn: vscode.ViewColumn.Three });
+		await vscode.window.showTextDocument(doc6, { viewColumn: vscode.ViewColumn.Three });
+
+		// Set doc5 as the active document in the current tab group
+		await vscode.window.showTextDocument(doc5, { viewColumn: vscode.ViewColumn.Two });
+
+		// Execute the command
+		await vscode.commands.executeCommand('extension.closeNonActiveTabsFromLeftInCurrentGroup');
+
+		// Check to ensure non-active tabs were closed in the current tab group and not in other tab groups
+		assert.strictEqual(vscode.window.tabGroups.all.length, 3, 'There should be 3 tab groups');
+    	assert.strictEqual(vscode.window.tabGroups.activeTabGroup.tabs.length, 2, 'There should be 2 tabs in the active group');
+    	assert.strictEqual(vscode.window.tabGroups.all.filter(group => !group.activeTab).every(group => group.tabs.length === 2), true, 'Every non-active tab group should still have 2 tabs');
+	});
+	
+	test('Close other (non-active) tabs from right in current tab group', async () => {
+		// Activate the extension
+		const extension = vscode.extensions.getExtension('dreamthinkbuild.close-other-tabs');
+		if (!extension) {
+			throw new Error('Extension not found');
+		}
+		await extension.activate();
+
+		// Open several documents
+		const doc1 = await vscode.workspace.openTextDocument({ content: 'Document 1' });
+		const doc2 = await vscode.workspace.openTextDocument({ content: 'Document 2' });
+		const doc3 = await vscode.workspace.openTextDocument({ content: 'Document 3' });
+		const doc4 = await vscode.workspace.openTextDocument({ content: 'Document 4' });
+		const doc5 = await vscode.workspace.openTextDocument({ content: 'Document 5' });
+		const doc6 = await vscode.workspace.openTextDocument({ content: 'Document 6' });
+		const allDocs = { doc1, doc2, doc3, doc4, doc5, doc6 };
+
+		// Show the documents in the editor
+		await vscode.window.showTextDocument(doc1, { viewColumn: vscode.ViewColumn.One });
+		await vscode.window.showTextDocument(doc2, { viewColumn: vscode.ViewColumn.One });
+		await vscode.window.showTextDocument(doc3, { viewColumn: vscode.ViewColumn.Two });
+		await vscode.window.showTextDocument(doc4, { viewColumn: vscode.ViewColumn.Two });
+		await vscode.window.showTextDocument(doc5, { viewColumn: vscode.ViewColumn.Three });
+		await vscode.window.showTextDocument(doc6, { viewColumn: vscode.ViewColumn.Three });
+
+		// Set doc5 as the active document in the current tab group
+		await vscode.window.showTextDocument(doc5, { viewColumn: vscode.ViewColumn.Two });
+
+		// Execute the command
+		await vscode.commands.executeCommand('extension.closeNonActiveTabsFromRightInCurrentGroup');
+
+		// Check to ensure non-active tabs were closed in the current tab group and not in other tab groups
+		assert.strictEqual(vscode.window.tabGroups.all.length, 3, 'There should be 3 tab groups');
+    	assert.strictEqual(vscode.window.tabGroups.activeTabGroup.tabs.length, 5, 'There should be 5 tabs in the active group');
+    	assert.strictEqual(vscode.window.tabGroups.all.filter(group => !group.activeTab).every(group => group.tabs.length === 2), true, 'Every non-active tab group should still have 2 tabs');
 	});
 
 	test('Close other (non-active) tabs in each tab group', async () => {
