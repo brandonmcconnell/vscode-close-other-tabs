@@ -33,7 +33,23 @@ You can access the commands via the Command Palette (Ctrl+Shift+P (Windows) or C
     * macOS: `Ctrl ^`+`Cmd ⌘`+`Shift ⇧`+`W`
     * Other: `Ctrl ^`+`Super ❖`+`Shift ⇧`+`W`
 
-3. **Close other (non-active) tabs in each tab group**
+3. **Close other (non-active) tabs from left in current tab group**
+
+    Command: `Close other (non-active) tabs from left in current tab group`
+
+    Keybindings:
+    - macOS: `Ctrl ^`+`Cmd ⌘`+`Shift ⇧`+`Left Arrow ←`
+    - Other: `Ctrl ^`+`Super ❖`+`Shift ⇧`+`Left Arrow ←`
+
+4. **Close other (non-active) tabs from right in current tab group**
+
+    Command: `Close other (non-active) tabs from right in current tab group`
+
+    Keybindings:
+    - macOS: `Ctrl ^`+`Cmd ⌘`+`Shift ⇧`+`Right Arrow ←`
+    - Other: `Ctrl ^`+`Super ❖`+`Shift ⇧`+`Right Arrow ←`
+
+5. **Close other (non-active) tabs in each tab group**
 
     Command: `Close other (non-active) tabs in each tab group`
     
@@ -41,7 +57,7 @@ You can access the commands via the Command Palette (Ctrl+Shift+P (Windows) or C
     * macOS: `Ctrl ^`+`Option ⌥`+`Shift ⇧`+`W`
     * Other: `Ctrl ^`+`Alt ⎇`+`Shift ⇧`+`W`
 
-4. **Close other (non-active) tabs and tab groups everywhere**
+6. **Close other (non-active) tabs and tab groups everywhere**
 
     Command: `Close other (non-active) tabs and tab groups everywhere`
     
