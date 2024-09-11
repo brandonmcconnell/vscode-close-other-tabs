@@ -138,7 +138,7 @@ suite('Extension Test Suite', () => {
 
 		// Check to ensure non-active tabs were closed in the current tab group and not in other tab groups
 		assert.strictEqual(vscode.window.tabGroups.all.length, 3, 'There should be 3 tab groups');
-    	assert.strictEqual(vscode.window.tabGroups.activeTabGroup.tabs.length, 2, 'There should be 5 tabs in the active group');
+    	assert.strictEqual(vscode.window.tabGroups.activeTabGroup.tabs.length, 2, 'There should be 2 tabs in the active group');
     	assert.strictEqual(vscode.window.tabGroups.all.filter(group => !group.activeTab).every(group => group.tabs.length === 3), true, 'Every non-active tab group should still have 3 tabs');
 	});
 	
