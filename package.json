@@ -29,6 +29,14 @@
         "title": "Close other (non-active) tabs in current tab group"
       },
       {
+        "command": "extension.closeNonActiveTabsFromLeftInCurrentGroup",
+        "title": "Close other (non-active) tabs from left in current tab group"
+      },
+      {
+        "command": "extension.closeNonActiveTabsFromRightInCurrentGroup",
+        "title": "Close other (non-active) tabs from right in current tab group"
+      },
+      {
         "command": "extension.closeNonActiveTabsInEachGroup",
         "title": "Close other (non-active) tabs in each tab group"
       },
@@ -48,6 +56,18 @@
         "command": "extension.closeNonActiveTabsInCurrentGroup",
         "key": "ctrl+super+shift+w",
         "mac": "ctrl+cmd+shift+w",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "extension.closeNonActiveTabsFromLeftInCurrentGroup",
+        "key": "ctrl+super+shift+left",
+        "mac": "ctrl+cmd+shift+left",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "extension.closeNonActiveTabsFromRightInCurrentGroup",
+        "key": "ctrl+super+shift+right",
+        "mac": "ctrl+cmd+shift+right",
         "when": "editorTextFocus"
       },
       {

@@ -1,5 +1,11 @@
 import * as vscode from 'vscode';
 
+
+enum CloseDirection {
+  left,
+  right,
+  both
+}
 export function activate(context: vscode.ExtensionContext) {
   let closeNonActiveTabGroupsDisposable = vscode.commands.registerCommand('extension.closeNonActiveTabGroups', async () => {
     await closeNonActiveTabGroups();
@@ -7,6 +13,14 @@ export function activate(context: vscode.ExtensionContext) {
 
   let closeNonActiveTabsInCurrentGroupDisposable = vscode.commands.registerCommand('extension.closeNonActiveTabsInCurrentGroup', async () => {
     await closeNonActiveTabsInCurrentGroup();
+  });
+
+  let closeNonActiveTabsFromLeftInCurrentGroupDisposable = vscode.commands.registerCommand('extension.closeNonActiveTabsFromLeftInCurrentGroup', async () => {
+    await closeNonActiveTabsInCurrentGroup(CloseDirection.left);
+  });
+
+  let closeNonActiveTabsFromRightInCurrentGroupDisposable = vscode.commands.registerCommand('extension.closeNonActiveTabsFromRightInCurrentGroup', async () => {
+    await closeNonActiveTabsInCurrentGroup(CloseDirection.right);
   });
 
   let closeNonActiveTabsInEachGroupDisposable = vscode.commands.registerCommand('extension.closeNonActiveTabsInEachGroup', async () => {
@@ -18,24 +32,37 @@ export function activate(context: vscode.ExtensionContext) {
   });
 
   context.subscriptions.push(closeNonActiveTabGroupsDisposable);
+  context.subscriptions.push(closeNonActiveTabsFromLeftInCurrentGroupDisposable);
+  context.subscriptions.push(closeNonActiveTabsFromRightInCurrentGroupDisposable);
   context.subscriptions.push(closeNonActiveTabsInCurrentGroupDisposable);
   context.subscriptions.push(closeNonActiveTabsInEachGroupDisposable);
   context.subscriptions.push(closeNonActiveTabsInAllGroupsDisposable);
 }
 
-async function closeTabsInGroup(tabGroup: vscode.TabGroup) {
+async function closeTabsInGroup(tabGroup: vscode.TabGroup, direction: CloseDirection = CloseDirection.both) {
   const tabs = tabGroup.tabs;
   if (!tabs.length) {
     return;
   }
 
   const activeTab = tabGroup.activeTab;
+  const activeTabIndex = tabs.findIndex(tab => tab === activeTab);
   if (!activeTab) {
     vscode.window.showWarningMessage('Skipping a tab group without an active tab.');
     return;
   }
-
-  const tabsToClose = tabs.filter(tab => tab !== activeTab);
+  let tabsToClose: vscode.Tab[] = [];
+  switch(direction) {
+    case CloseDirection.both:
+      tabsToClose = tabs.filter(tab => tab !== activeTab);
+      break;
+      case CloseDirection.left:
+        tabsToClose = tabs.slice(0, activeTabIndex);
+        break;
+      case CloseDirection.right:
+        tabsToClose = tabs.slice(activeTabIndex + 1);
+        break;
+  }
   await Promise.all(tabsToClose.map(tab => vscode.window.tabGroups.close(tab)));
 }
 
@@ -61,7 +88,7 @@ async function closeNonActiveTabGroups() {
   await Promise.all(nonActiveTabGroups.map(tabGroup => vscode.window.tabGroups.close(tabGroup)));
 }
 
-async function closeNonActiveTabsInCurrentGroup() {
+async function closeNonActiveTabsInCurrentGroup(direction: CloseDirection = CloseDirection.both) {
   const currentTabGroup = vscode.window.tabGroups.activeTabGroup;
 
   if (!currentTabGroup) {
@@ -69,7 +96,7 @@ async function closeNonActiveTabsInCurrentGroup() {
     return;
   }
 
-  await closeTabsInGroup(currentTabGroup);
+  await closeTabsInGroup(currentTabGroup, direction);
 }
 
 async function closeNonActiveTabsInEachGroup() {
